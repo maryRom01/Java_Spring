@@ -7,4 +7,5 @@ public interface AccountDAO extends DAO<Account> {
 
     public Account getAccountByEmail(String email);
     public Account getAccountByCustomer(Customer customer);
+    public Account findByNumber(String number);
 }
