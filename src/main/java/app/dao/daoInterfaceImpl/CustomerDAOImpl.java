@@ -3,9 +3,6 @@ package app.dao.daoInterfaceImpl;
 import app.dao.daoInterface.CustomerDAO;
 import app.entities.Customer;
 import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.RequiredArgsConstructor;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -16,12 +13,18 @@ import java.util.stream.Collectors;
 @Component
 public class CustomerDAOImpl implements CustomerDAO {
 
-    private final List<Customer> customers = List.of(
-            new Customer(1, "Customer A", "a@aol.com", 45, new ArrayList<>()),
-            new Customer(2, "Customer B", "b@aol.com", 31, new ArrayList<>()),
-            new Customer(3, "Customer B", "b2@aol.com", 38, new ArrayList<>()),
-            new Customer(4, "Customer C", "c@aol.com", 77, new ArrayList<>())
-    );
+    private List<Customer> customers;
+
+    public CustomerDAOImpl() {
+        customers = new ArrayList<>();
+        customers.add(new Customer(1, "Customer A", "a@aol.com", 45, new ArrayList<>()));
+        customers.add(new Customer(2, "Customer B", "b@bol.com", 31, new ArrayList<>()));
+        customers.add(new Customer(3, "Customer B", "b2@aol.com", 38, new ArrayList<>()));
+        customers.add(new Customer(4, "Customer C", "c@aol.com", 77, new ArrayList<>()));
+        customers.add(new Customer(5, "Customer D", "d@aol.com", 19, new ArrayList<>()));
+        customers.add(new Customer(6, "Customer E", "e@aol.com", 24, new ArrayList<>()));
+        customers.add(new Customer(7, "Customer F", "f@aol.com", 65, new ArrayList<>()));
+    }
 
     @Override
     public List<Customer> findByName(String name) {
@@ -55,16 +58,21 @@ public class CustomerDAOImpl implements CustomerDAO {
 
     @Override
     public List<Customer> findAll() {
-        return List.of();
+        return customers;
     }
 
     @Override
     public boolean deleteById(long id) {
+        Customer requiredCustomer = customers.stream().filter(c -> c.getId() == id).findFirst().orElse(null);
+        if (requiredCustomer != null) {
+            customers.remove(requiredCustomer);
+            return true;
+        }
         return false;
     }
 
     @Override
     public Customer getOne(long id) {
-        return null;
+        return customers.stream().filter(c -> c.getId() == id).findFirst().orElse(null);
     }
 }

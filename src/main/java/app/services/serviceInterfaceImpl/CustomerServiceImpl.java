@@ -39,17 +39,17 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public List<Customer> findAll() {
-        return List.of();
+        return customerDAO.findAll();
     }
 
     @Override
     public boolean deleteById(long id) {
-        return false;
+        return customerDAO.deleteById(id);
     }
 
     @Override
     public Customer getOne(long id) {
-        return null;
+        return customerDAO.getOne(id);
     }
 
     @Override
