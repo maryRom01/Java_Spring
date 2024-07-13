@@ -94,7 +94,7 @@ public class CustomerController {
     }
 
     // POST http://localhost:8081/customerAll
-    @PostMapping("customerAll")
+    @PostMapping("customersAll")
     public ResponseEntity<List<Customer>> saveAllCustomers(@RequestBody List<Customer> customers) {
         Optional<List<Customer>> customersResult = customerService.saveAll(customers);
         return customersResult
