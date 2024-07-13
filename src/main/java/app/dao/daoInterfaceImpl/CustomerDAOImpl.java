@@ -43,23 +43,33 @@ public class CustomerDAOImpl implements CustomerDAO {
         return Optional.empty();
     }
 
+    public Optional<Customer> getCustomerIfExists(Customer customer) {
+        List<Customer> cc = customers.stream()
+                .filter(c -> c.getName().equals(customer.getName()))
+                .filter(c -> c.getEmail().equals(customer.getEmail()))
+                .filter(c -> c.getAge().equals(customer.getAge()))
+                .toList();
+        if (!cc.isEmpty()) return Optional.of(cc.get(0));
+        return Optional.empty();
+    }
+
     @Override
     public Optional<Customer> save(Customer customer) {
-        if (!customers.isEmpty()) {
-            Optional<Customer> existingCustomer = getOne(customer.getId());
-            existingCustomer.ifPresent(value ->
+        //if (!customers.isEmpty()) {
+            getCustomerIfExists(customer).ifPresent(value ->
                     {
-                        value.setName(customer.getName());
-                        value.setEmail(customer.getEmail());
-                        value.setAge(customer.getAge());
-                        value.setAccounts(customer.getAccounts());
+                            value.setName(customer.getName());
+                            value.setEmail(customer.getEmail());
+                            value.setAge(customer.getAge());
+                            value.setAccounts(customer.getAccounts());
                     }
             );
-            customers.add(customer);
+            if (getCustomerIfExists(customer).isEmpty()) {
+                customers.add(customer);
+            }
             return Optional.of(customer);
-        }
-        customers.add(customer);
-        return Optional.of(customer);
+        //}
+        //return Optional.of(customer);
     }
 
     @Override
@@ -73,8 +83,16 @@ public class CustomerDAOImpl implements CustomerDAO {
     }
 
     @Override
-    public void saveAll(List<Customer> entities) {
-
+    public Optional<List<Customer>> saveAll(List<Customer> customersToBeAdded) {
+        if (!customers.isEmpty() && !customersToBeAdded.isEmpty()) {
+            customersToBeAdded.forEach(customer -> {
+                save(customer);
+            });
+        }
+        if (customers.isEmpty() && !customersToBeAdded.isEmpty()) {
+            customers.addAll(customersToBeAdded);
+        }
+        return Optional.of(customers);
     }
 
     @Override

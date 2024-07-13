@@ -38,8 +38,8 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public void saveAll(List<Customer> customers) {
-
+    public Optional<List<Customer>> saveAll(List<Customer> customers) {
+        return customerDAO.saveAll(customers);
     }
 
     @Override

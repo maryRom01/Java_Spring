@@ -93,4 +93,15 @@ public class CustomerController {
                 .orElse(emptyCustomer);
     }
 
+    // POST http://localhost:8081/customerAll
+    @PostMapping("customerAll")
+    public ResponseEntity<List<Customer>> saveAllCustomers(@RequestBody List<Customer> customers) {
+        Optional<List<Customer>> customersResult = customerService.saveAll(customers);
+        return customersResult
+                .map(c -> ResponseEntity
+                        .status(HttpStatus.OK)
+                        .body(c))
+                .orElse(emptyCustomerList);
+    }
+
 }

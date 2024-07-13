@@ -9,7 +9,7 @@ public interface CustomerService {
     Optional<Customer> save(Customer customer);
     boolean delete(Customer customer);
     void deleteAll(List<Customer> customers);
-    void saveAll(List<Customer> customers);
+    Optional<List<Customer>> saveAll(List<Customer> customers);
     Optional<List<Customer>> findAll();
     Optional<Boolean> deleteById(long id);
     Optional<Customer> getOne(long id);
