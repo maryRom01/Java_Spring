@@ -25,6 +25,8 @@ public class CustomerDAOImpl implements CustomerDAO {
         customers.add(new Customer(5, "Customer D", "d@aol.com", 19, new ArrayList<>()));
         customers.add(new Customer(6, "Customer E", "e@aol.com", 24, new ArrayList<>()));
         customers.add(new Customer(7, "Customer F", "f@aol.com", 65, new ArrayList<>()));
+        long lastExistingId = customers.get(customers.size() - 1).getId();
+        Customer.setSerialVersionUID(lastExistingId + 1);
     }
 
     @Override
@@ -42,8 +44,22 @@ public class CustomerDAOImpl implements CustomerDAO {
     }
 
     @Override
-    public Customer save(Customer obj) {
-        return null;
+    public Optional<Customer> save(Customer customer) {
+        if (!customers.isEmpty()) {
+            Optional<Customer> existingCustomer = getOne(customer.getId());
+            existingCustomer.ifPresent(value ->
+                    {
+                        value.setName(customer.getName());
+                        value.setEmail(customer.getEmail());
+                        value.setAge(customer.getAge());
+                        value.setAccounts(customer.getAccounts());
+                    }
+            );
+            customers.add(customer);
+            return Optional.of(customer);
+        }
+        customers.add(customer);
+        return Optional.of(customer);
     }
 
     @Override

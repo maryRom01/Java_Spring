@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface CustomerService {
-    Customer save(Customer customer);
+    Optional<Customer> save(Customer customer);
     boolean delete(Customer customer);
     void deleteAll(List<Customer> customers);
     void saveAll(List<Customer> customers);

@@ -19,8 +19,12 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public Customer save(Customer customer) {
-        return null;
+    public Optional<Customer> save(Customer customer) {
+        if (customerDAO.findAll().isPresent()) {
+            customerDAO.save(customer);
+            return Optional.of(customer);
+        }
+        return Optional.empty();
     }
 
     @Override

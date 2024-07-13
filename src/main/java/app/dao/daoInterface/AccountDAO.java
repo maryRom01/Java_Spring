@@ -5,7 +5,7 @@ import app.entities.Customer;
 
 public interface AccountDAO extends DAO<Account> {
 
-    public Account getAccountByEmail(String email);
-    public Account getAccountByCustomer(Customer customer);
-    public Account findByNumber(String number);
+    Account getAccountByEmail(String email);
+    Account getAccountByCustomer(Customer customer);
+    Account findByNumber(String number);
 }

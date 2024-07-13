@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface DAO<T> {
-    T save(T obj);
+    Optional<T> save(T obj);
     boolean delete(T obj);
     void deleteAll(List<T> entities);
     void saveAll(List<T> entities);
