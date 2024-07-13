@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @AllArgsConstructor
@@ -27,13 +28,17 @@ public class CustomerDAOImpl implements CustomerDAO {
     }
 
     @Override
-    public List<Customer> findByName(String name) {
-        return customers.stream().filter(c -> c.getName().equals(name)).collect(Collectors.toList());
+    public Optional<List<Customer>> findByName(String name) {
+        List<Customer> requredCustomersList = customers.stream().filter(c -> c.getName().equals(name)).collect(Collectors.toList());
+        if (!requredCustomersList.isEmpty()) return Optional.of(requredCustomersList);
+        return Optional.empty();
     }
 
     @Override
-    public Customer findByEmail(String email) {
-        return customers.stream().filter(c -> c.getEmail().equals(email)).findFirst().orElse(null);
+    public Optional<Customer> findByEmail(String email) {
+        Customer requestedCustomer = customers.stream().filter(c -> c.getEmail().equals(email)).findFirst().orElse(null);
+        if (requestedCustomer != null) return Optional.of(requestedCustomer);
+        return Optional.empty();
     }
 
     @Override
@@ -57,22 +62,26 @@ public class CustomerDAOImpl implements CustomerDAO {
     }
 
     @Override
-    public List<Customer> findAll() {
-        return customers;
+    public Optional<List<Customer>> findAll() {
+        if (customers != null) return Optional.of(customers);
+        return Optional.empty();
     }
 
     @Override
-    public boolean deleteById(long id) {
+    public Optional<Boolean> deleteById(long id) {
         Customer requiredCustomer = customers.stream().filter(c -> c.getId() == id).findFirst().orElse(null);
         if (requiredCustomer != null) {
             customers.remove(requiredCustomer);
-            return true;
+            return Optional.of(true);
         }
-        return false;
+        return Optional.of(false);
     }
 
     @Override
-    public Customer getOne(long id) {
-        return customers.stream().filter(c -> c.getId() == id).findFirst().orElse(null);
+    public Optional<Customer> getOne(long id) {
+        Customer customer = customers.stream().filter(c -> c.getId() == id).findFirst().orElse(null);
+        if (customer != null) {
+            return Optional.of(customer);
+        } else return Optional.empty();
     }
 }

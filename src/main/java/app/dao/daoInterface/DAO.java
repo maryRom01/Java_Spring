@@ -1,13 +1,14 @@
 package app.dao.daoInterface;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface DAO<T> {
     T save(T obj);
     boolean delete(T obj);
     void deleteAll(List<T> entities);
     void saveAll(List<T> entities);
-    List<T> findAll();
-    boolean deleteById(long id);
-    T getOne(long id);
+    Optional<List<T>> findAll();
+    Optional<Boolean> deleteById(long id);
+    Optional<T> getOne(long id);
 }

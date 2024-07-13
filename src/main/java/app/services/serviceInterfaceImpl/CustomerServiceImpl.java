@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CustomerServiceImpl implements CustomerService {
@@ -38,27 +39,30 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public List<Customer> findAll() {
+    public Optional<List<Customer>> findAll() {
+        if (customerDAO.findAll().isEmpty()) return Optional.empty();
         return customerDAO.findAll();
     }
 
     @Override
-    public boolean deleteById(long id) {
+    public Optional<Boolean> deleteById(long id) {
         return customerDAO.deleteById(id);
     }
 
     @Override
-    public Customer getOne(long id) {
+    public Optional<Customer> getOne(long id) {
+        if (customerDAO.getOne(id).isEmpty()) return Optional.empty();
         return customerDAO.getOne(id);
     }
 
     @Override
-    public List<Customer> findByName(String name) {
-        return new ArrayList<>(customerDAO.findByName(name));
+    public Optional<List<Customer>> findByName(String name) {
+        if (customerDAO.findByName(name).isEmpty()) return Optional.empty();
+        return customerDAO.findByName(name);
     }
 
     @Override
-    public Customer findByEmail(String email) {
+    public Optional<Customer> findByEmail(String email) {
         return customerDAO.findByEmail(email);
     }
 }
