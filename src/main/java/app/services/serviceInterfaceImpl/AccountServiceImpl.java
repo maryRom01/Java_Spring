@@ -15,20 +15,46 @@ import java.util.Optional;
 public class AccountServiceImpl implements AccountService {
 
     private final AccountDAOImpl accountDAO;
+    private final CustomerDAOImpl customerDAO;
 
-    public AccountServiceImpl(AccountDAOImpl accountDAO) {
+    public AccountServiceImpl(AccountDAOImpl accountDAO, CustomerDAOImpl customerDAO) {
         this.accountDAO = accountDAO;
+        this.customerDAO = customerDAO;
     }
 
-
-    @Override
-    public Optional<Account> save(Account obj) {
+    public Optional<Account> getAccountIfExists(Account account) {
+        Optional<Customer> customer = customerDAO.findById(account.getCustomerId());
+        if (customer.isPresent()) {
+             Account foundAccount = customer.get()
+                    .getAccounts()
+                    .stream()
+                    .filter(a -> a.getNumber().equals(account.getNumber()))
+                    .findFirst()
+                    .orElse(null);
+             if (foundAccount != null) return Optional.of(foundAccount);
+        }
         return Optional.empty();
     }
 
     @Override
-    public boolean delete(Account obj) {
-        return false;
+    public Optional<Account> save(Account account) {
+        getAccountIfExists(account).ifPresent(value -> {
+            value.setBalance(account.getBalance());
+        });
+        return Optional.empty();
+    }
+
+    @Override
+    public Optional<Boolean> delete(Account account) {
+        Customer customer = customerDAO.findById(account.getCustomerId()).orElse(null);
+        if (customer != null) {
+            Optional<Account> accountOptional = getAccountIfExists(account);
+            if (accountOptional.isPresent()) {
+                customer.getAccounts().remove(accountOptional.get());
+                return Optional.of(true);
+            }
+        }
+        return Optional.of(false);
     }
 
     @Override
@@ -62,8 +88,8 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public List<Account> getAccountByCustomer(Customer customer) {
-        List<Account> accounts = accountDAO.getAccountByCustomer(customer);
+    public Optional<List<Account>> getAccountByCustomer(Customer customer) {
+        Optional<List<Account>> accounts = accountDAO.getAccountByCustomer(customer);
         return accounts;
     }
 

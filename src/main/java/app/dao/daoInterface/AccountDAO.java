@@ -9,6 +9,6 @@ import java.util.Optional;
 public interface AccountDAO extends DAO<Account> {
 
     Optional<List<Account>> getAccountByEmail(String email);
-    List<Account> getAccountByCustomer(Customer customer);
+    Optional<List<Account>> getAccountByCustomer(Customer customer);
     Optional<Account> findByNumber(String number);
 }

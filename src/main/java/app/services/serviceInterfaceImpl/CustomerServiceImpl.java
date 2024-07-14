@@ -27,8 +27,8 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public boolean delete(Customer customer) {
-        return false;
+    public Optional<Boolean> delete(Customer customer) {
+        return Optional.empty();
     }
 
     @Override

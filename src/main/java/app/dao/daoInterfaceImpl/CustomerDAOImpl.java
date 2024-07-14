@@ -77,8 +77,8 @@ public class CustomerDAOImpl implements CustomerDAO {
     }
 
     @Override
-    public boolean delete(Customer obj) {
-        return false;
+    public Optional<Boolean> delete(Customer obj) {
+        return Optional.empty();
     }
 
     @Override

@@ -28,25 +28,21 @@ public class AccountController {
     private final static ResponseEntity<Account> emptyAccount =
             ResponseEntity.notFound().build();
 
+    private final static ResponseEntity<List<Account>> emptyAccountList =
+            ResponseEntity.notFound().build();
+
+    /**
+     * Отримати всі рахунки для користувача
+     * */
     //http://localhost:9000/customer/3/accounts
     @GetMapping("customer/{id}/accounts")
     public ResponseEntity<List<Account>> getAllAccounts(@PathVariable("id") long id) {
         Optional<Customer> customer = customerService.getOne(id);
-        List<Account> accounts = accountService.getAccountByCustomer(customer.get());
-        return ResponseEntity
-                .status(HttpStatus.OK)
-                .body(accounts);
-    }
-
-    @PostMapping("customer/{id}/account/{curr}")
-    public ResponseEntity<Account> createAccount(@PathVariable("id") long id, @PathVariable("curr") Currency curr) {
-        Optional<Customer> customer = customerService.getOne(id);
-        if (customer.isPresent()) {
-            Account account = accountService.createAccount(curr, customer.get());
-            return ResponseEntity
-                            .status(HttpStatus.OK)
-                            .body(account);
-        }
-        return emptyAccount;
+        Optional<List<Account>> accounts = accountService.getAccountByCustomer(customer.get());
+        return accounts.map(
+                a -> ResponseEntity
+                        .status(HttpStatus.OK)
+                        .body(a))
+                .orElse(emptyAccountList);
     }
 }

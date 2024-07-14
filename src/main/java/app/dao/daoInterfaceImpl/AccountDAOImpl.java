@@ -7,7 +7,6 @@ import app.entities.enums.Currency;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,9 +19,10 @@ public class AccountDAOImpl implements AccountDAO {
     }
 
     @Override
-    public List<Account> getAccountByCustomer(Customer customer) {
+    public Optional<List<Account>> getAccountByCustomer(Customer customer) {
         List<Account> accounts = customer.getAccounts();
-        return accounts;
+        if (accounts.isEmpty()) return Optional.empty();
+        return Optional.of(accounts);
     }
 
     @Override
@@ -31,13 +31,15 @@ public class AccountDAOImpl implements AccountDAO {
     }
 
     @Override
-    public Optional<Account> save(Account obj) {
+    public Optional<Account> save(Account account) {
+
         return Optional.empty();
     }
 
     @Override
-    public boolean delete(Account obj) {
-        return false;
+    public Optional<Boolean> delete(Account account) {
+
+        return Optional.empty();
     }
 
     @Override
