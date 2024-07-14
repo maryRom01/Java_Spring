@@ -5,7 +5,6 @@ import app.entities.Customer;
 import app.services.serviceInterface.CustomerService;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -67,6 +66,13 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public Optional<Customer> findByEmail(String email) {
+        if (customerDAO.findByEmail(email).isEmpty()) return Optional.empty();
         return customerDAO.findByEmail(email);
+    }
+
+    @Override
+    public Optional<Customer> findById(long id) {
+        if (customerDAO.findById(id).isEmpty()) return Optional.empty();
+        return customerDAO.findById(id);
     }
 }

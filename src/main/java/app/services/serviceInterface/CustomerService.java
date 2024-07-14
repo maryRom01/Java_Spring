@@ -15,4 +15,5 @@ public interface CustomerService {
     Optional<Customer> getOne(long id);
     Optional<List<Customer>> findByName(String name);
     Optional<Customer> findByEmail(String email);
+    Optional<Customer> findById(long id);
 }

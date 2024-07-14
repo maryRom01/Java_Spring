@@ -27,7 +27,7 @@ public class CustomerController {
     private final static ResponseEntity<List<Customer>> emptyCustomerList =
             ResponseEntity.notFound().build();
 
-    // GET http://localhost:8081/customers
+    // GET http://localhost:9000/customers
     @GetMapping("customers")
     public ResponseEntity<List<Customer>> getAllCustomers() {
         Optional<List<Customer>> allCustomers = customerService.findAll();
@@ -38,7 +38,7 @@ public class CustomerController {
                 .orElse(emptyCustomerList);
     }
 
-    // GET http://localhost:8081/customerByName?name=Customer%20B
+    // GET http://localhost:9000/customerByName?name=Customer%20B
     @GetMapping("customerByName")
     public ResponseEntity<List<Customer>> getCustomerByName(@RequestParam String name) {
         Optional<List<Customer>> customersByNameList = customerService.findByName(name);
@@ -49,7 +49,7 @@ public class CustomerController {
                 .orElse(emptyCustomerList);
     }
 
-    // GET http://localhost:8081/customerByEmail?email=a@aol.com
+    // GET http://localhost:9000/customerByEmail?email=a@aol.com
     @GetMapping("customerByEmail")
     public ResponseEntity<Customer> getCustomerByEmail(@RequestParam String email) {
         Optional<Customer> customerByEmail = customerService.findByEmail(email);
@@ -60,7 +60,7 @@ public class CustomerController {
                 .orElse(emptyCustomer);
     }
 
-    // GET http://localhost:8081/customerById?id=3
+    // GET http://localhost:9000/customerById?id=3
     @GetMapping("customerById")
     public ResponseEntity<Customer> getCustomerById(@RequestParam long id) {
         Optional<Customer> customerById = customerService.getOne(id);
@@ -71,7 +71,7 @@ public class CustomerController {
                 .orElse(emptyCustomer);
     }
 
-    // DELETE http://localhost:8081/deleteCustomerById/3
+    // DELETE http://localhost:9000/deleteCustomerById/3
     @DeleteMapping("deleteCustomerById/{id}")
     public ResponseEntity<Boolean> deleteCustomerById(@PathVariable("id") long id) {
         Optional<Boolean> flag = customerService.deleteById(id);
@@ -82,7 +82,7 @@ public class CustomerController {
                 .orElse(falseFlag);
     }
 
-    // POST http://localhost:8081/customer
+    // POST http://localhost:9000/customer
     @PostMapping("customer")
     public ResponseEntity<Customer> saveCustomer(@RequestBody Customer customer) {
         Optional<Customer> customerById = customerService.save(customer);
@@ -93,7 +93,7 @@ public class CustomerController {
                 .orElse(emptyCustomer);
     }
 
-    // POST http://localhost:8081/customerAll
+    // POST http://localhost:9000/customerAll
     @PostMapping("customersAll")
     public ResponseEntity<List<Customer>> saveAllCustomers(@RequestBody List<Customer> customers) {
         Optional<List<Customer>> customersResult = customerService.saveAll(customers);

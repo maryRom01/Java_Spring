@@ -18,7 +18,7 @@ public class CustomerDAOImpl implements CustomerDAO {
 
     public CustomerDAOImpl() {
         customers = new ArrayList<>();
-        customers.add(new Customer(1, "Customer A", "a@aol.com", 45, new ArrayList<>()));
+        customers.add(new Customer(1, "Customer A", "a@bol.com", 31, new ArrayList<>()));
         customers.add(new Customer(2, "Customer B", "b@bol.com", 31, new ArrayList<>()));
         customers.add(new Customer(3, "Customer B", "b2@aol.com", 38, new ArrayList<>()));
         customers.add(new Customer(4, "Customer C", "c@aol.com", 77, new ArrayList<>()));
@@ -43,6 +43,13 @@ public class CustomerDAOImpl implements CustomerDAO {
         return Optional.empty();
     }
 
+    @Override
+    public Optional<Customer> findById(long id) {
+        Customer requestedCustomer = customers.stream().filter(c -> c.getId() == id).findFirst().orElse(null);
+        if (requestedCustomer != null) return Optional.of(requestedCustomer);
+        return Optional.empty();
+    }
+
     public Optional<Customer> getCustomerIfExists(Customer customer) {
         List<Customer> cc = customers.stream()
                 .filter(c -> c.getName().equals(customer.getName()))
@@ -55,7 +62,6 @@ public class CustomerDAOImpl implements CustomerDAO {
 
     @Override
     public Optional<Customer> save(Customer customer) {
-        //if (!customers.isEmpty()) {
             getCustomerIfExists(customer).ifPresent(value ->
                     {
                             value.setName(customer.getName());
@@ -68,8 +74,6 @@ public class CustomerDAOImpl implements CustomerDAO {
                 customers.add(customer);
             }
             return Optional.of(customer);
-        //}
-        //return Optional.of(customer);
     }
 
     @Override
