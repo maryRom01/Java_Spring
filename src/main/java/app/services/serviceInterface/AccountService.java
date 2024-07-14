@@ -19,4 +19,6 @@ public interface AccountService {
     Optional<List<Account>> getAccountByCustomer(Customer customer);
     Optional<Account> findByNumber(String number);
     Account createAccount(Currency currency, Customer customer);
+    Optional<Account> increaseAccountSum(String number, double sum);
+    Optional<Account> decreaseAccountSum(String number, double sum);
 }

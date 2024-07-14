@@ -8,8 +8,10 @@ import app.entities.enums.Currency;
 import app.services.serviceInterface.AccountService;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class AccountServiceImpl implements AccountService {
@@ -102,5 +104,61 @@ public class AccountServiceImpl implements AccountService {
     public Account createAccount(Currency currency, Customer customer) {
         Account account = accountDAO.createAccount(currency, customer);
         return account;
+    }
+
+    @Override
+    public Optional<Account> increaseAccountSum(String number, double sum) {
+        Optional<List<Customer>> customers = customerDAO.findAll();
+        if (customers.isPresent()) {
+            List<Customer> customerList = customers.get();
+            List<Account> accounts = new ArrayList<>();
+            customerList.forEach(customer -> {
+                List<Account> customerAccounts = customer.getAccounts();
+                customerAccounts.forEach(customerAccount -> {
+                    accounts.add(customerAccount);
+                });
+            });
+            if (accounts.size() > 0) {
+                 Account requiredAccount = accounts
+                         .stream()
+                         .filter(account -> account.getNumber().equals(number))
+                         .collect(Collectors.toList()).get(0);
+                 if (requiredAccount != null) {
+                     requiredAccount.setBalance(requiredAccount.getBalance() + sum);
+                     return Optional.of(requiredAccount);
+                 }
+            }
+        }
+        return Optional.empty();
+    }
+
+    @Override
+    public Optional<Account> decreaseAccountSum(String number, double sum) {
+        Optional<List<Customer>> customers = customerDAO.findAll();
+        if (customers.isPresent()) {
+            List<Customer> customerList = customers.get();
+            List<Account> accounts = new ArrayList<>();
+            customerList.forEach(customer -> {
+                List<Account> customerAccounts = customer.getAccounts();
+                customerAccounts.forEach(customerAccount -> {
+                    accounts.add(customerAccount);
+                });
+            });
+            if (accounts.size() > 0) {
+                Account requiredAccount = accounts
+                        .stream()
+                        .filter(account -> account.getNumber().equals(number))
+                        .collect(Collectors.toList()).get(0);
+                if (requiredAccount != null) {
+                    if (requiredAccount.getBalance() < sum) {
+                        return Optional.empty();
+                    } else {
+                        requiredAccount.setBalance(requiredAccount.getBalance() - sum);
+                        return Optional.of(requiredAccount);
+                    }
+                }
+            }
+        }
+        return Optional.empty();
     }
 }
