@@ -19,12 +19,12 @@ public class Account implements Serializable {
     private String number;
     private Currency currency;
     private double balance = 0;
-    private Customer customer;
+    private long customerId;
 
     public Account(Currency currency, Customer customer) {
         this.id = serialVersionUID++;
         this.number = UUID.randomUUID().toString();
         this.currency = currency;
-        this.customer = customer;
+        this.customerId = customer.getId();
     }
 }

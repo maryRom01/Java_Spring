@@ -65,11 +65,12 @@ public class AccountDAOImpl implements AccountDAO {
         return Optional.empty();
     }
 
-    public Optional<Account> createAccount(Currency currency, Customer customer) {
+    public Account createAccount(Currency currency, Customer customer) {
         if (customer != null) {
             Account newAccount = new Account(currency, customer);
             customer.getAccounts().add(newAccount);
+            return newAccount;
         }
-        return Optional.empty();
+        return null;
     }
 }

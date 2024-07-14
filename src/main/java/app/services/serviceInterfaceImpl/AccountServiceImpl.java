@@ -73,9 +73,8 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public Optional<Account> createAccount(Currency currency, Customer customer) {
-        Optional<Account> account = accountDAO.createAccount(currency, customer);
-        if (account.isEmpty()) return Optional.empty();
+    public Account createAccount(Currency currency, Customer customer) {
+        Account account = accountDAO.createAccount(currency, customer);
         return account;
     }
 }

@@ -18,5 +18,5 @@ public interface AccountService {
     Optional<Account> getAccountByEmail(String email);
     List<Account> getAccountByCustomer(Customer customer);
     Optional<Account> findByNumber(String number);
-    Optional<Account> createAccount(Currency currency, Customer customer);
+    Account createAccount(Currency currency, Customer customer);
 }

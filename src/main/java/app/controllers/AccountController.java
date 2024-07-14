@@ -2,6 +2,7 @@ package app.controllers;
 
 import app.entities.Account;
 import app.entities.Customer;
+import app.entities.enums.Currency;
 import app.services.serviceInterface.AccountService;
 import app.services.serviceInterface.CustomerService;
 import lombok.RequiredArgsConstructor;
@@ -10,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -23,7 +25,7 @@ public class AccountController {
     private final AccountService accountService;
     private final CustomerService customerService;
 
-    private final static ResponseEntity<List<Account>> emptyAccountList =
+    private final static ResponseEntity<Account> emptyAccount =
             ResponseEntity.notFound().build();
 
     //http://localhost:9000/customer/3/accounts
@@ -34,5 +36,17 @@ public class AccountController {
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(accounts);
+    }
+
+    @PostMapping("customer/{id}/account/{curr}")
+    public ResponseEntity<Account> createAccount(@PathVariable("id") long id, @PathVariable("curr") Currency curr) {
+        Optional<Customer> customer = customerService.getOne(id);
+        if (customer.isPresent()) {
+            Account account = accountService.createAccount(curr, customer.get());
+            return ResponseEntity
+                            .status(HttpStatus.OK)
+                            .body(account);
+        }
+        return emptyAccount;
     }
 }
