@@ -19,6 +19,7 @@ import java.util.Optional;
 @RestController
 @RequiredArgsConstructor
 @Log4j2
+@RequestMapping("api/v1")
 public class CustomerController {
 
     private final CustomerService customerService;
@@ -39,7 +40,7 @@ public class CustomerController {
     /**
      * Отримати інформацію про всіх користувачів, включаючи їх рахунки
      * */
-    // GET http://localhost:9000/customers
+    // GET http://localhost:9000/api/v1/customers
     @GetMapping("customers")
     public ResponseEntity<List<Customer>> getAllCustomers() {
         Optional<List<Customer>> allCustomers = customerService.findAll();
@@ -53,7 +54,7 @@ public class CustomerController {
     /**
      * Отримати інформацію про окремого користувача, включаючи його рахунки
      * */
-    // GET http://localhost:9000/customer/id?id=3
+    // GET http://localhost:9000/api/v1/customer/id?id=3
     @GetMapping("customer/id")
     public ResponseEntity<Customer> getCustomerById(@RequestParam long id) {
         Optional<Customer> customerById = customerService.getOne(id);
@@ -64,7 +65,7 @@ public class CustomerController {
                 .orElse(emptyCustomer);
     }
 
-    // GET http://localhost:9000/customer/name?name=Customer%20B
+    // GET http://localhost:9000/api/v1/customer/name?name=Customer%20B
     @GetMapping("customer/name")
     public ResponseEntity<List<Customer>> getCustomerByName(@RequestParam String name) {
         Optional<List<Customer>> customersByNameList = customerService.findByName(name);
@@ -75,7 +76,7 @@ public class CustomerController {
                 .orElse(emptyCustomerList);
     }
 
-    // GET http://localhost:9000/customer/email?email=a@aol.com
+    // GET http://localhost:9000/api/v1/customer/email?email=a@aol.com
     @GetMapping("customer/email")
     public ResponseEntity<Customer> getCustomerByEmail(@RequestParam String email) {
         Optional<Customer> customerByEmail = customerService.findByEmail(email);
@@ -89,7 +90,7 @@ public class CustomerController {
     /**
      * Видалити користувача
      * */
-    // DELETE http://localhost:9000/customer/3
+    // DELETE http://localhost:9000/api/v1/customer/3
     @DeleteMapping("customer/{id}")
     public ResponseEntity<Boolean> deleteCustomerById(@PathVariable("id") long id) {
         Optional<Boolean> flag = customerService.deleteById(id);
@@ -103,7 +104,7 @@ public class CustomerController {
     /**
      * Видалити рахунок у користувача
      */
-    // DELETE http://localhost:9000/customer/{id}/account/{accId}
+    // DELETE http://localhost:9000/api/v1/customer/{id}/account/{accId}
     @DeleteMapping("customer/{id}/account/{accId}")
     public ResponseEntity<Boolean> deleteCustomerAccount(@PathVariable("id") long id,
                                                                     @PathVariable("accId") long accId) {
@@ -130,7 +131,7 @@ public class CustomerController {
      * Cтворити користувача
      * Змінити користувача
      * */
-    // POST http://localhost:9000/customer
+    // POST http://localhost:9000/api/v1/customer
     @PostMapping("customer")
     public ResponseEntity<Customer> saveCustomer(@RequestBody Customer customer) {
         Optional<Customer> savedCustomer = customerService.save(customer);
@@ -156,8 +157,8 @@ public class CustomerController {
         return emptyAccount;
     }
 
-    // POST http://localhost:9000/customersAll
-    @PostMapping("customersAll")
+    // POST http://localhost:9000/api/v1/customers
+    @PostMapping("customers")
     public ResponseEntity<List<Customer>> saveAllCustomers(@RequestBody List<Customer> customers) {
         Optional<List<Customer>> customersResult = customerService.saveAll(customers);
         return customersResult
