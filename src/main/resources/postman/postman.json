@@ -1,0 +1,375 @@
+{
+	"info": {
+		"_postman_id": "4924d41f-7376-4620-9242-021430e2d470",
+		"name": "JavaSpring DanIT project",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "10761326"
+	},
+	"item": [
+		{
+			"name": "CustomerController",
+			"item": [
+				{
+					"name": "customers",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9000/api/v1/customers",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9000",
+							"path": [
+								"api",
+								"v1",
+								"customers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "customer/id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9000/api/v1/customer/id?id=3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9000",
+							"path": [
+								"api",
+								"v1",
+								"customer",
+								"id"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "3"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "customer/name",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9000/api/v1/customer/name?name=Customer%20B",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9000",
+							"path": [
+								"api",
+								"v1",
+								"customer",
+								"name"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "Customer%20B"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "customer/email",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9000/api/v1/customer/email?email=b@bol.com",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9000",
+							"path": [
+								"api",
+								"v1",
+								"customer",
+								"email"
+							],
+							"query": [
+								{
+									"key": "email",
+									"value": "b@bol.com"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "customer/{id}",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9000/api/v1/customer/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9000",
+							"path": [
+								"api",
+								"v1",
+								"customer",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "customer/{id}/account{accId}",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9000/api/v1/customer/1/account/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9000",
+							"path": [
+								"api",
+								"v1",
+								"customer",
+								"1",
+								"account",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "customer",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Customer R\",\r\n    \"email\": \"r@rol.com\",\r\n    \"age\": 33,\r\n    \"accounts\": []\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9000/api/v1/customer",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9000",
+							"path": [
+								"api",
+								"v1",
+								"customer"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "customer/{id}/account/{curr}",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9000/api/v1/customer/2/account/EUR",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9000",
+							"path": [
+								"api",
+								"v1",
+								"customer",
+								"2",
+								"account",
+								"EUR"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "customers",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\r\n    {\r\n    \"name\": \"Customer M\",\r\n    \"email\": \"m@aol.com\",\r\n    \"age\": 55,\r\n    \"accounts\": []\r\n  },\r\n  {\r\n    \"name\": \"Customer N\",\r\n    \"email\": \"n@aol.com\",\r\n    \"age\": 68,\r\n    \"accounts\": []\r\n  }\r\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9000/api/v1/customers",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9000",
+							"path": [
+								"api",
+								"v1",
+								"customers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "http://localhost:9000/customer/2/account/1",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9000/customer/2/account/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9000",
+							"path": [
+								"customer",
+								"2",
+								"account",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "AccountController",
+			"item": [
+				{
+					"name": "customer/{id}/accounts",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9000/api/v1/customer/1/accounts",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9000",
+							"path": [
+								"api",
+								"v1",
+								"customer",
+								"1",
+								"accounts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "account/increase/number/sum/sum",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9000/api/v1/account/increase/96b8bf69-da37-48e4-bf02-5143bb848550/amount/1025",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9000",
+							"path": [
+								"api",
+								"v1",
+								"account",
+								"increase",
+								"96b8bf69-da37-48e4-bf02-5143bb848550",
+								"amount",
+								"1025"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "account/decrease/number/sum/sum Copy",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9000/api/v1/account/decrease/f69ea4c1-456b-411f-9967-4c60afe5ee1b/amount/15",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9000",
+							"path": [
+								"api",
+								"v1",
+								"account",
+								"decrease",
+								"f69ea4c1-456b-411f-9967-4c60afe5ee1b",
+								"amount",
+								"15"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "transfer",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9000/api/v1/transfer/c088fd05-16d0-4f53-b2c8-fd8f55226f3e/d381cfb7-d1f0-457c-8d90-e0d690bb9fd4/amount/25.0",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9000",
+							"path": [
+								"api",
+								"v1",
+								"transfer",
+								"c088fd05-16d0-4f53-b2c8-fd8f55226f3e",
+								"d381cfb7-d1f0-457c-8d90-e0d690bb9fd4",
+								"amount",
+								"25.0"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
