@@ -33,6 +33,7 @@ public class AccountController {
      * */
     //http://localhost:9000/api/v1/customer/3/accounts
     @GetMapping("customer/{id}/accounts")
+    @CrossOrigin(origins = "http://localhost:4200")
     public ResponseEntity<List<Account>> getAllAccounts(@PathVariable("id") long id) {
         Optional<Customer> customer = customerService.getOne(id);
         Optional<List<Account>> accounts = accountService.getAccountByCustomer(customer.get());
@@ -48,6 +49,7 @@ public class AccountController {
      * */
     //http://localhost:9000/api/v1/accountI/increase/90810e49-5ad6-40e3-9d02-ee9a42d7dd67/sum/1500.5
     @PostMapping("account/increase/{number}/amount/{amount}")
+    @CrossOrigin(origins = "http://localhost:4200")
     public ResponseEntity<Account> increaseAccount(@PathVariable("number") String number,
                                                    @PathVariable("amount") double amount) {
         Optional<Account> account = accountService.increaseAccountSum(number, amount);
@@ -63,6 +65,7 @@ public class AccountController {
      * */
     //http://localhost:9000/api/v1/accountD/decrease/90810e49-5ad6-40e3-9d02-ee9a42d7dd67/sum/150.5
     @PostMapping("account/decrease/{number}/amount/{amount}")
+    @CrossOrigin(origins = "http://localhost:4200")
     public ResponseEntity<Account> decreaseAccount(@PathVariable("number") String number,
                                                    @PathVariable("amount") double amount) {
         Optional<Account> account = accountService.decreaseAccountSum(number, amount);
@@ -77,6 +80,7 @@ public class AccountController {
      * Переказати гроші на інший рахунок
      * */
     @PostMapping("transfer/{from}/{to}/amount/{amount}")
+    @CrossOrigin(origins = "http://localhost:4200")
     public ResponseEntity<Account> transfer(@PathVariable("from") String accountFrom,
                                             @PathVariable("to") String accountTo,
                                             @PathVariable("amount") double amount) {

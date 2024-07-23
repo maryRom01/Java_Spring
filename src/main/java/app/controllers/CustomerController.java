@@ -39,6 +39,7 @@ public class CustomerController {
      * Отримати інформацію про всіх користувачів, включаючи їх рахунки
      * */
     // GET http://localhost:9000/api/v1/customers
+    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("customers")
     public ResponseEntity<List<Customer>> getAllCustomers() {
         Optional<List<Customer>> allCustomers = customerService.findAll();
@@ -53,6 +54,7 @@ public class CustomerController {
      * Отримати інформацію про окремого користувача, включаючи його рахунки
      * */
     // GET http://localhost:9000/api/v1/customer/id?id=3
+    @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping("customer/id")
     public ResponseEntity<Customer> getCustomerById(@RequestParam long id) {
         Optional<Customer> customerById = customerService.getOne(id);
@@ -65,6 +67,7 @@ public class CustomerController {
 
     // GET http://localhost:9000/api/v1/customer/name?name=Customer%20B
     @GetMapping("customer/name")
+    @CrossOrigin(origins = "http://localhost:4200")
     public ResponseEntity<List<Customer>> getCustomerByName(@RequestParam String name) {
         Optional<List<Customer>> customersByNameList = customerService.findByName(name);
         return customersByNameList
@@ -76,6 +79,7 @@ public class CustomerController {
 
     // GET http://localhost:9000/api/v1/customer/email?email=a@aol.com
     @GetMapping("customer/email")
+    @CrossOrigin(origins = "http://localhost:4200")
     public ResponseEntity<Customer> getCustomerByEmail(@RequestParam String email) {
         Optional<Customer> customerByEmail = customerService.findByEmail(email);
         return customerByEmail
@@ -90,6 +94,7 @@ public class CustomerController {
      * */
     // DELETE http://localhost:9000/api/v1/customer/3
     @DeleteMapping("customer/{id}")
+    @CrossOrigin(origins = "http://localhost:4200")
     public ResponseEntity<Boolean> deleteCustomerById(@PathVariable("id") long id) {
         Optional<Boolean> flag = customerService.deleteById(id);
         return flag
@@ -104,6 +109,7 @@ public class CustomerController {
      */
     // DELETE http://localhost:9000/api/v1/customer/{id}/account/{accId}
     @DeleteMapping("customer/{id}/account/{accId}")
+    @CrossOrigin(origins = "http://localhost:4200")
     public ResponseEntity<Boolean> deleteCustomerAccount(@PathVariable("id") long id,
                                                                     @PathVariable("accId") long accId) {
         Customer customerById = customerService.getOne(id).get();
@@ -131,6 +137,7 @@ public class CustomerController {
      * */
     // POST http://localhost:9000/api/v1/customer
     @PostMapping("customer")
+    @CrossOrigin(origins = "http://localhost:4200")
     public ResponseEntity<Customer> saveCustomer(@RequestBody Customer customer) {
         Optional<Customer> savedCustomer = customerService.save(customer);
         return savedCustomer
@@ -144,6 +151,7 @@ public class CustomerController {
      * Створити рахунок для конкретного користувача
      * */
     @PostMapping("customer/{id}/account/{curr}")
+    @CrossOrigin(origins = "http://localhost:4200")
     public ResponseEntity<Account> createAccount(@PathVariable("id") long id, @PathVariable("curr") Currency curr) {
         Optional<Customer> customer = customerService.getOne(id);
         if (customer.isPresent()) {
@@ -157,6 +165,7 @@ public class CustomerController {
 
     // POST http://localhost:9000/api/v1/customers
     @PostMapping("customers")
+    @CrossOrigin(origins = "http://localhost:4200")
     public ResponseEntity<List<Customer>> saveAllCustomers(@RequestBody List<Customer> customers) {
         Optional<List<Customer>> customersResult = customerService.saveAll(customers);
         return customersResult
